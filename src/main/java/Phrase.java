@@ -94,4 +94,19 @@ public class Phrase {
         }
         System.out.println(endPhraseChar);
     }
+
+    public String getRead() {
+        String tout ="";
+        for(Mot mot: mots){
+            tout+= mot.getMot();
+            tout += " ";
+        }
+        tout += endPhraseChar;
+
+        return tout;
+    }
+
+    public Duration getEndTime() {
+        return endTime;
+    }
 }

@@ -14,8 +14,13 @@ import com.google.cloud.speech.v1p1beta1.SpeechRecognitionResult;
 import com.google.cloud.speech.v1p1beta1.SpeechSettings;
 import com.google.cloud.speech.v1p1beta1.WordInfo;
 import com.google.protobuf.ByteString;
+import com.google.protobuf.Duration;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.CFFFont;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -73,7 +78,7 @@ public class Text {
             e.printStackTrace();
         }
 
-        handleText();
+        handleText2();
     }
 
     public void readFile2(){
@@ -145,6 +150,7 @@ public class Text {
                 words.remove(wordInfo);
                 if(wordInfo != null){
                     phrases.add(new Phrase(phrase, wordInfo.getEndTime()));
+                    System.out.println(wordInfo);
                     phrase = "";
                 }
 
@@ -293,19 +299,20 @@ public class Text {
         correspondances.add(correspondance);
     }
 
-    public void writeInFile() {
+    ArrayList<Duration> images = new ArrayList<>();
+    public void writeInFile() throws URISyntaxException, IOException, BadElementException {
         FileWriter fw = null;
         try {
             fw = new FileWriter("outText.txt");
             int cpt = 0;
             for (Double corr : correspondances) {
                 ++cpt;
-                if(!String.valueOf(corr).equals("NaN") && !String.valueOf(corr).equals("-Infinity")){
-                    fw.write(String.valueOf(corr)+"\n");
+                if (!String.valueOf(corr).equals("NaN") && !String.valueOf(corr).equals("-Infinity")) {
+                    fw.write(String.valueOf(corr) + "\n");
                 }
             }
             fw.close();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         try {
@@ -314,23 +321,91 @@ public class Text {
             int compteurMin = 0;
             int autreCpt = 0;
             ArrayList<Double> newLocalMinimums = new ArrayList<>();
-            while(compteur < localMinimums.get(localMinimums.size()-1) && compteurMin < localMinimums.size()){
-                if(compteur == localMinimums.get(compteurMin)){
+            while (compteur < localMinimums.get(localMinimums.size() - 1) && compteurMin < localMinimums.size()) {
+                if (compteur == localMinimums.get(compteurMin)) {
                     newLocalMinimums.add(correspondances.get(localMinimums.get(compteurMin)));
+                    System.out.println("Phrase: "+phrases.get(localMinimums.get(compteurMin)).getEndTime().toString());
+                    images.add(phrases.get(localMinimums.get(compteurMin)).getEndTime());
                     ++compteurMin;
-                }else{
+                } else {
                     newLocalMinimums.add(0.0);
                 }
                 ++compteur;
             }
             for (Double corr : newLocalMinimums) {
-                fw.write(String.valueOf(corr)+"\n");
+                fw.write(String.valueOf(corr) + "\n");
             }
             fw.close();
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
+
+
+        System.out.println(images);
+        for (Duration dur : images) {
+            System.out.println(dur);
+            System.out.println(dur.getSeconds());
+
+            ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur.getSeconds(),"-i", "videoMIT.mp4", "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur.getSeconds()+".jpg", "-y");
+            pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+            pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+            try {
+                Process p = pb.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+            try {
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        int compteur = 0;
+        int compteurMin = 0;
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream("iTextHelloWorld.pdf"));
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        document.open();
+        while (compteur < phrases.size() && compteur < localMinimums.get(localMinimums.size() - 1) && compteurMin < localMinimums.size()) {
+            if (compteur == localMinimums.get(compteurMin)) {
+                Paragraph chunk = new Paragraph(phrases.get(compteur).getRead());
+                try {
+                    document.add(chunk);
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                }
+                if(phrases.get(compteur) != null && phrases.get(compteur).getEndTime() != null){
+                    Image img = Image.getInstance(("imagefile" + phrases.get(compteur).getEndTime().getSeconds() + ".jpg"));
+                    if(img != null){
+                        try {
+                            document.add(img);
+                        } catch (DocumentException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                ++compteurMin;
+            } else {
+                Paragraph chunk = new Paragraph(phrases.get(compteur).getRead());
+                try {
+                    document.add(chunk);
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                }
+            }
+            ++compteur;
+        }
+        document.close();
 
     }
 
@@ -362,7 +437,7 @@ public class Text {
 
     public void calculateCorrespondances(int clusterSize){
         int cpt = 0;
-        System.out.println(phrases);
+        System.out.println("size phrases: "+phrases.size());
         while(cpt < phrases.size()){
             breakPointPoints(cpt, clusterSize);
             ++cpt;
@@ -453,7 +528,6 @@ public class Text {
     }
 
     public void generateGraph() {
-        System.out.println("ici");
         ProcessBuilder pb = new ProcessBuilder("node", "generateSigGraph.js");
         pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
         pb.redirectError(ProcessBuilder.Redirect.INHERIT);
