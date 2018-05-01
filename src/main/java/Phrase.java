@@ -9,7 +9,7 @@ public class Phrase {
     ArrayList<Mot> mots = new ArrayList<>();
     String phrase = "";
     int firstWordPosition = 0;
-    char endPhraseChar;
+    char endPhraseChar = '.';
     Duration endTime;
 
     public Phrase(String phrase) {
@@ -28,26 +28,7 @@ public class Phrase {
         for(int i = 0; i < phrase.length(); i++)
         {
             char c = phrase.charAt(i);
-            if(c == ' ' || c == '\n' || c == '.' || c == 13 || c == ','|| c == ';' || c == '!' || c == '?' || c == '\''|| c == '-' || c == ';'){
-                if(mot.length() != 0){
-                    mots.add(new Mot(mot));
-                    mot = "";
-                }
-                if(c == '.' || c == '!' || c == '?'){
-                    endPhraseChar = c;
-                }
-            }else{
-                mot += c;
-            }
-        }
-    }
-
-    private void handlePhrase2(){
-        String mot = "";
-        for(int i = 0; i < phrase.length(); i++)
-        {
-            char c = phrase.charAt(i);
-            if(c == ' ' || c == '\n' || c == '.' || c == 13 || c == ','|| c == ';' || c == '!' || c == '?' || c == '\''|| c == '-' || c == ';'){
+            if(c == ' ' || c == '\n' || c == '.' || c == 13 || c == ','|| c == ';' || c == '!' || c == '?' || /*c == '\''|| */c == '-' || c == ';'){
                 if(mot.length() != 0){
                     mots.add(new Mot(mot));
                     mot = "";
@@ -101,9 +82,13 @@ public class Phrase {
             tout+= mot.getMot();
             tout += " ";
         }
+        if(tout.length() > 0){
+            tout = tout.substring(0, tout.length()-1);
+        }
         tout += endPhraseChar;
+        String retour = tout.substring(0, 1).toUpperCase() + tout.substring(1);
 
-        return tout;
+        return retour;
     }
 
     public Duration getEndTime() {
