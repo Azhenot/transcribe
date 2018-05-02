@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Text text = new Text("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\textFull.txt");
+       /* Text text = new Text("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\textFull.txt");
         text.transcribeGoogleSpeech();
         text.readFile();
         text.setOccToMots();
@@ -55,7 +55,15 @@ public class Main {
         }
         text.generateGraph();
         //text.readPhrases();
-        //text.handleVideo2();
+        text.handleVideo();*/
+
+        VideoTranscription t = new VideoTranscription();
+        //t.videoToWav("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\videoMIT.mp4");
+        t.googleSpeech("gs://videosmasi/videoMIT.wav", "videoMIT.mp4", 8, 15, 5.0);
+        //t.fromText("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\subtitles.txt", 10, 15, 5.0);
+        //t.fromSubtitles("videoMIT.mp4", "subtitles.text", 8, 15, 5.0);
+
+        //Smoothing fails because of NAN
 
 
     }

@@ -52,14 +52,7 @@ public class Text {
     }
 
 
-    public void handleVideo(){
-        String command = "ffmpeg -i videoMIT50sec.mp4 -vn -acodec pcm_s16le -ar 16000 -ac 1 videoMIT50sec.wav";
-        try {
-            Process processDuration = Runtime.getRuntime().exec(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public void readFile(){
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -77,60 +70,9 @@ public class Text {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        handleText2();
     }
 
-    public void readFile2(){
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-
-            String sCurrentLine;
-            String before = "";
-            String timeStamp;
-            while ((sCurrentLine = br.readLine()) != null) {
-                if(!sCurrentLine.equals("")){
-                    if(sCurrentLine.contains("-->")){
-                        timeStamp = sCurrentLine;
-                    }else{
-                        text += before;
-                        text += " ";
-                    }
-                    before = sCurrentLine;
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        handleText2();
-    }
-
-    private void handleText() {
-        text = text.toLowerCase();
-        text.replace("/\n"," ");
-        text.trim();
-        text = text.replace("  "," ");//2 or more space to 1
-        String phrase = "";
-        int cptMots = 0;
-        for(int i = 0; i < text.length(); i++)
-        {
-            char c = text.charAt(i);
-            phrase += c;
-            if(c == ' '){
-                ++cptMots;
-            }
-            if( c == '.' || c == '?' || c == '!'/*cptMots == 15*/){
-                //If line is a timestamp, saved and phrase gets reference
-                phrases.add(new Phrase(phrase));
-                phrase = "";
-                cptMots = 0;
-            }
-
-        }
-    }
-
-    private void handleText2() {
+    public void handleTextGoogleSpeech() {
         text = text.toLowerCase();
         text.replace("/\n"," ");
         text.trim();
@@ -157,6 +99,34 @@ public class Text {
             }
 
         }
+    }
+
+    public void handleTextNormal() {
+        text = text.toLowerCase();
+        text.replace("/\n"," ");
+        text.trim();
+        text = text.replace("  "," ");//2 or more space to 1
+        String phrase = "";
+        int cptMots = 0;
+        for(int i = 0; i < text.length(); i++)
+        {
+            char c = text.charAt(i);
+            phrase += c;
+            if(c == ' '){
+                ++cptMots;
+            }
+            if( c == '.' || c == '?' || c == '!'/*cptMots == 15*/){
+                //If line is a timestamp, saved and phrase gets reference
+                phrases.add(new Phrase(phrase));
+                phrase = "";
+                cptMots = 0;
+            }
+
+        }
+    }
+
+    public void handleTextSubtitles() {
+        // TO DO
     }
 
     public WordInfo getWordInfo(String wordToLook){
@@ -300,7 +270,8 @@ public class Text {
     }
 
     ArrayList<Duration> images = new ArrayList<>();
-    public void writeInFile() throws URISyntaxException, IOException, BadElementException {
+
+    public void writeInFileGoogleSpeech(String videoLink){
         FileWriter fw = null;
         try {
             fw = new FileWriter("outText.txt");
@@ -350,7 +321,7 @@ public class Text {
             System.out.println(dur);
             System.out.println(dur.getSeconds());
 
-            ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur.getSeconds(),"-i", "videoMIT.mp4", "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur.getSeconds()+".jpg", "-y");
+            ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur.getSeconds(),"-i", videoLink, "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur.getSeconds()+".jpg", "-y");
             pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
             pb.redirectError(ProcessBuilder.Redirect.INHERIT);
             try {
@@ -385,7 +356,14 @@ public class Text {
                     e.printStackTrace();
                 }
                 if(phrases.get(compteur) != null && phrases.get(compteur).getEndTime() != null){
-                    Image img = Image.getInstance(("imagefile" + phrases.get(compteur).getEndTime().getSeconds() + ".jpg"));
+                    Image img = null;
+                    try {
+                        img = Image.getInstance(("imagefile" + phrases.get(compteur).getEndTime().getSeconds() + ".jpg"));
+                    } catch (BadElementException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     if(img != null){
                         try {
                             document.add(img);
@@ -543,7 +521,7 @@ public class Text {
         }
     }
 
-    public void transcribeGoogleSpeech(){
+    public void transcribeGoogleSpeech(String videoLink){
 
         CredentialsProvider credentialsProvider = null;
         try {
@@ -566,7 +544,7 @@ public class Text {
 
                 // The path to the audio file to transcribe
                 String fileName = "./src/main/resources/output.wav";
-                String uri = "gs://videosmasi/videoMIT.wav";
+                String uri = videoLink;
 
                 // Reads the audio file into memory
                 Path path = Paths.get(fileName);
@@ -622,7 +600,7 @@ public class Text {
 
                 FileWriter fw = null;
                 try {
-                    fw = new FileWriter("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\textFull.txt");
+                    fw = new FileWriter(".\\src\\main\\resources\\textGoogleTranscription.txt");
                     fw.write(text2);
                     fw.close();
                 }catch (IOException e) {
@@ -634,7 +612,163 @@ public class Text {
         }
     }
 
-    public void createPdf(){
+    public void writeInFileNoPdf() {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("outText.txt");
+            int cpt = 0;
+            for (Double corr : correspondances) {
+                ++cpt;
+                if (!String.valueOf(corr).equals("NaN") && !String.valueOf(corr).equals("-Infinity")) {
+                    fw.write(String.valueOf(corr) + "\n");
+                }
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            fw = new FileWriter("outTextMinimums.txt");
+            int compteur = 0;
+            int compteurMin = 0;
+            int autreCpt = 0;
+            ArrayList<Double> newLocalMinimums = new ArrayList<>();
+            while (compteur < localMinimums.get(localMinimums.size() - 1) && compteurMin < localMinimums.size()) {
+                if (compteur == localMinimums.get(compteurMin)) {
+                    newLocalMinimums.add(correspondances.get(localMinimums.get(compteurMin)));
+                    ++compteurMin;
+                } else {
+                    newLocalMinimums.add(0.0);
+                }
+                ++compteur;
+            }
+            for (Double corr : newLocalMinimums) {
+                fw.write(String.valueOf(corr) + "\n");
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
+
+    public void writeInFileImageFromVideo(String videoLink) {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("outText.txt");
+            int cpt = 0;
+            for (Double corr : correspondances) {
+                ++cpt;
+                if (!String.valueOf(corr).equals("NaN") && !String.valueOf(corr).equals("-Infinity")) {
+                    fw.write(String.valueOf(corr) + "\n");
+                }
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            fw = new FileWriter("outTextMinimums.txt");
+            int compteur = 0;
+            int compteurMin = 0;
+            int autreCpt = 0;
+            ArrayList<Double> newLocalMinimums = new ArrayList<>();
+            while (compteur < localMinimums.get(localMinimums.size() - 1) && compteurMin < localMinimums.size()) {
+                if (compteur == localMinimums.get(compteurMin)) {
+                    newLocalMinimums.add(correspondances.get(localMinimums.get(compteurMin)));
+                    System.out.println("Phrase: "+phrases.get(localMinimums.get(compteurMin)).getEndTime().toString());
+                    images.add(phrases.get(localMinimums.get(compteurMin)).getEndTime());
+                    ++compteurMin;
+                } else {
+                    newLocalMinimums.add(0.0);
+                }
+                ++compteur;
+            }
+            for (Double corr : newLocalMinimums) {
+                fw.write(String.valueOf(corr) + "\n");
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+        System.out.println(images);
+        for (Duration dur : images) {
+            System.out.println(dur);
+            System.out.println(dur.getSeconds());
+
+            ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur.getSeconds(),"-i", videoLink, "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur.getSeconds()+".jpg", "-y");
+            pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+            pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+            try {
+                Process p = pb.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+            try {
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        int compteur = 0;
+        int compteurMin = 0;
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream("iTextHelloWorld.pdf"));
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        document.open();
+        while (compteur < phrases.size() && compteur < localMinimums.get(localMinimums.size() - 1) && compteurMin < localMinimums.size()) {
+            if (compteur == localMinimums.get(compteurMin)) {
+                Paragraph chunk = new Paragraph(phrases.get(compteur).getRead());
+                try {
+                    document.add(chunk);
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                }
+                if(phrases.get(compteur) != null && phrases.get(compteur).getEndTime() != null){
+                    Image img = null;
+                    try {
+                        img = Image.getInstance(("imagefile" + phrases.get(compteur).getEndTime().getSeconds() + ".jpg"));
+                    } catch (BadElementException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if(img != null){
+                        try {
+                            document.add(img);
+                        } catch (DocumentException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                ++compteurMin;
+            } else {
+                Paragraph chunk = new Paragraph(phrases.get(compteur).getRead());
+                try {
+                    document.add(chunk);
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                }
+            }
+            ++compteur;
+        }
+        document.close();
+    }
+
+
+
 }
