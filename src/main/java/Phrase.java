@@ -10,16 +10,18 @@ public class Phrase {
     String phrase = "";
     int firstWordPosition = 0;
     char endPhraseChar = '.';
-    Duration endTime;
+    long endTime;
 
     public Phrase(String phrase) {
         this.phrase = phrase;
         handlePhrase();
     }
 
-    public Phrase(String phrase, Duration endTime) {
+    public Phrase(String phrase, long endTime) {
         this.phrase = phrase;
         this.endTime = endTime;
+        System.out.println("ici"+phrase);
+        System.out.println(endTime);
         handlePhrase();
     }
 
@@ -91,7 +93,7 @@ public class Phrase {
         return retour;
     }
 
-    public Duration getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 }

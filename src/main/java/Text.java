@@ -65,11 +65,54 @@ public class Text {
                     text += " ";
                 }
             }
-            System.out.println("Text: "+text);
+            //System.out.println("Text: "+text);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void readFileSubtitles(){
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+
+            String sCurrentLine;
+            int seconds = 0;
+            String phrase = "";
+            while ((sCurrentLine = br.readLine()) != null) {
+                if(!sCurrentLine.equals("")){
+                    if(sCurrentLine.contains("-->")){
+                        String time = sCurrentLine.substring(17,25);
+                        seconds = 0;
+                        seconds = Integer.parseInt(time.substring(0,1)) * 3600;
+                        seconds += Integer.parseInt(time.substring(3,5)) * 60;
+                        seconds += Integer.parseInt(time.substring(6,8));
+                    }
+                    else if(sCurrentLine.matches("[0-9]+")) {
+                    }else{
+                        char endPhrase = sCurrentLine.charAt(sCurrentLine.length()-1);
+
+                        if(endPhrase == '!' || endPhrase == '?' || endPhrase == '.'){
+                            phrase += sCurrentLine;
+                            phrases.add(new Phrase(phrase, seconds));
+                            phrase = "";
+                        }else{
+                            phrase += sCurrentLine;
+                            phrase += " ";
+                        }
+                    }
+                    text += sCurrentLine;
+                    text += " ";
+                }
+            }
+            //System.out.println("Text: "+text);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleTextSubtitles() {
+        System.out.println(text);
     }
 
     public void handleTextGoogleSpeech() {
@@ -91,7 +134,7 @@ public class Text {
                 WordInfo wordInfo = getWordInfo(word.trim());
                 words.remove(wordInfo);
                 if(wordInfo != null){
-                    phrases.add(new Phrase(phrase, wordInfo.getEndTime()));
+                    phrases.add(new Phrase(phrase, wordInfo.getEndTime().getSeconds()));
                     System.out.println(wordInfo);
                     phrase = "";
                 }
@@ -125,9 +168,7 @@ public class Text {
         }
     }
 
-    public void handleTextSubtitles() {
-        // TO DO
-    }
+
 
     public WordInfo getWordInfo(String wordToLook){
         for(WordInfo wordInfo: words){
@@ -269,7 +310,7 @@ public class Text {
         correspondances.add(correspondance);
     }
 
-    ArrayList<Duration> images = new ArrayList<>();
+    ArrayList<Long> images = new ArrayList<>();
 
     public void writeInFileGoogleSpeech(String videoLink){
         FileWriter fw = null;
@@ -295,7 +336,6 @@ public class Text {
             while (compteur < localMinimums.get(localMinimums.size() - 1) && compteurMin < localMinimums.size()) {
                 if (compteur == localMinimums.get(compteurMin)) {
                     newLocalMinimums.add(correspondances.get(localMinimums.get(compteurMin)));
-                    System.out.println("Phrase: "+phrases.get(localMinimums.get(compteurMin)).getEndTime().toString());
                     images.add(phrases.get(localMinimums.get(compteurMin)).getEndTime());
                     ++compteurMin;
                 } else {
@@ -317,30 +357,29 @@ public class Text {
 
 
         System.out.println(images);
-        for (Duration dur : images) {
+        for (Long dur : images) {
             System.out.println(dur);
-            System.out.println(dur.getSeconds());
 
-            ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur.getSeconds(),"-i", videoLink, "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur.getSeconds()+".jpg", "-y");
+            ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur,"-i", videoLink, "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur+".jpg", "-y");
             pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
             pb.redirectError(ProcessBuilder.Redirect.INHERIT);
             try {
                 Process p = pb.start();
+                try {
+                    p.waitFor();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
 
-            }
-            try {
-                TimeUnit.SECONDS.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
         int compteur = 0;
         int compteurMin = 0;
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("iTextHelloWorld.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("GoogleSpeechResult.pdf"));
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -355,10 +394,10 @@ public class Text {
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 }
-                if(phrases.get(compteur) != null && phrases.get(compteur).getEndTime() != null){
+                if(phrases.get(compteur) != null && phrases.get(compteur).getEndTime() != 0){
                     Image img = null;
                     try {
-                        img = Image.getInstance(("imagefile" + phrases.get(compteur).getEndTime().getSeconds() + ".jpg"));
+                        img = Image.getInstance(("imagefile" + phrases.get(compteur).getEndTime() + ".jpg"));
                     } catch (BadElementException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -434,11 +473,15 @@ public class Text {
         correspondances2.add(correspondances.get(0));
 
         while(cpt < correspondances.size()-2){
-            Double A = (correspondances.get(cpt+2) - correspondances.get(cpt))/2;
-            A = A + correspondances.get(cpt);
-            Double B = (correspondances.get(cpt+1) + A)/2;
 
-            correspondances2.add(cpt+1,B);
+            if(correspondances.get(cpt) != Double.NaN && correspondances.get(cpt+1) != Double.NEGATIVE_INFINITY && correspondances.get(cpt+2) != Double.POSITIVE_INFINITY){
+                Double A = (correspondances.get(cpt+2) - correspondances.get(cpt))/2;
+                A = A + correspondances.get(cpt);
+                Double B = (correspondances.get(cpt+1) + A)/2;
+                correspondances2.add(cpt+1,B);
+            }else{
+                correspondances2.add(cpt+1,correspondances.get(cpt+1));
+            }
             ++cpt;
         }
         correspondances2.add(correspondances.get(cpt));
@@ -511,13 +554,14 @@ public class Text {
         pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         try {
             Process p = pb.start();
+            try {
+                p.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -678,7 +722,6 @@ public class Text {
             while (compteur < localMinimums.get(localMinimums.size() - 1) && compteurMin < localMinimums.size()) {
                 if (compteur == localMinimums.get(compteurMin)) {
                     newLocalMinimums.add(correspondances.get(localMinimums.get(compteurMin)));
-                    System.out.println("Phrase: "+phrases.get(localMinimums.get(compteurMin)).getEndTime().toString());
                     images.add(phrases.get(localMinimums.get(compteurMin)).getEndTime());
                     ++compteurMin;
                 } else {
@@ -700,30 +743,29 @@ public class Text {
 
 
         System.out.println(images);
-        for (Duration dur : images) {
+        for (Long dur : images) {
             System.out.println(dur);
-            System.out.println(dur.getSeconds());
 
-            ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur.getSeconds(),"-i", videoLink, "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur.getSeconds()+".jpg", "-y");
+            ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur,"-i", videoLink, "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur+".jpg", "-y");
             pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
             pb.redirectError(ProcessBuilder.Redirect.INHERIT);
             try {
                 Process p = pb.start();
+                try {
+                    p.waitFor();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
 
-            }
-            try {
-                TimeUnit.SECONDS.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
         int compteur = 0;
         int compteurMin = 0;
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("iTextHelloWorld.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("subtitlesResult.pdf"));
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -738,10 +780,10 @@ public class Text {
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 }
-                if(phrases.get(compteur) != null && phrases.get(compteur).getEndTime() != null){
+                if(phrases.get(compteur) != null && phrases.get(compteur).getEndTime() != 0){
                     Image img = null;
                     try {
-                        img = Image.getInstance(("imagefile" + phrases.get(compteur).getEndTime().getSeconds() + ".jpg"));
+                        img = Image.getInstance(("imagefile" + phrases.get(compteur).getEndTime() + ".jpg"));
                     } catch (BadElementException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

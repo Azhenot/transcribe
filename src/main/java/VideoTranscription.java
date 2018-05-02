@@ -75,8 +75,7 @@ public class VideoTranscription {
 
     public void fromSubtitles(String videoLink, String subtitles, int nbSmoothing, int clusterSize, Double minima){
         Text text = new Text(subtitles);
-        text.readFile();
-        text.handleTextSubtitles();
+        text.readFileSubtitles();
         text.setOccToMots();
         text.setPositionMots();
         text.calculateNValueMots();

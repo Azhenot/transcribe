@@ -59,9 +59,9 @@ public class Main {
 
         VideoTranscription t = new VideoTranscription();
         //t.videoToWav("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\videoMIT.mp4");
-        t.googleSpeech("gs://videosmasi/videoMIT.wav", "videoMIT.mp4", 8, 15, 5.0);
-        //t.fromText("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\subtitles.txt", 10, 15, 5.0);
-        //t.fromSubtitles("videoMIT.mp4", "subtitles.text", 8, 15, 5.0);
+        //t.googleSpeech("gs://videosmasi/videoMIT.wav", "videoMIT.mp4", 8, 15, 5.0);
+        //t.fromText("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\subtitles.txt", 20, 15, 5.0);
+        t.fromSubtitles("videoMIT.mp4", "subs with time.txt", 16, 15, 5.0);
 
         //Smoothing fails because of NAN
 
