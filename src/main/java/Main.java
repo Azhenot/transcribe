@@ -4,6 +4,8 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,53 +21,33 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-       /* Text text = new Text("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\textFull.txt");
-        text.transcribeGoogleSpeech();
-        text.readFile();
-        text.setOccToMots();
-        text.setPositionMots();
-        text.calculateNValueMots();
-        text.calculateSigValue();
-        text.calculateCorrespondances(15);
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-        text.smoothing();
-
-
-        text.localMinima(5.0);
-        try {
-            text.writeInFile();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (BadElementException e) {
-            e.printStackTrace();
-        }
-        text.generateGraph();
-        //text.readPhrases();
-        text.handleVideo();*/
+        EventQueue.invokeLater(() -> {
+            Graphique ex = new Graphique();
+            ex.setVisible(true);
+        });
 
         VideoTranscription t = new VideoTranscription();
         //t.videoToWav("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\videoMIT.mp4");
         //t.googleSpeech("gs://videosmasi/videoMIT.wav", "videoMIT.mp4", 8, 15, 5.0);
         //t.fromText("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\subtitles.txt", 20, 15, 5.0);
-        t.fromSubtitles("videoMIT.mp4", "subs with time.txt", 16, 15, 5.0);
+        //t.fromSubtitles("videoMIT.mp4", "subs with time.txt", 16, 15, 5.0);
 
-        //Smoothing fails because of NAN
+    }
 
+    public class SimpleEx extends JFrame {
 
+        public SimpleEx() {
+
+            initUI();
+        }
+
+        private void initUI() {
+
+            setTitle("Simple example");
+            setSize(300, 200);
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+        }
     }
 
 }
