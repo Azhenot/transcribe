@@ -62,7 +62,7 @@ setTimeout(function(){
     };
     var data = [trace1, trace2];
     //console.log(data);
-    var graphOptions = {filename: "testing with pdf", fileopt: "overwrite"};
+    var graphOptions = {filename: "No lemming full 100% 8 smoothing", fileopt: "overwrite"};
     plotly.plot(data, graphOptions, function (err, msg) {
         console.log(msg);
     }); 

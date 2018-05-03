@@ -48,7 +48,7 @@ public class TFIDFCalculator {
 
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         List<String> doc1 = Arrays.asList("Lorem", "ipsum", "dolor", "ipsum", "sit", "ipsum");
         List<String> doc2 = Arrays.asList("Vituperata", "incorrupte", "at", "ipsum", "pro", "quo");
@@ -60,7 +60,7 @@ public class TFIDFCalculator {
         System.out.println("TF-IDF (ipsum) = " + tfidf);
 
 
-    }
+    }*/
 
 
 }
