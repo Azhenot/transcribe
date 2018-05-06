@@ -20,6 +20,7 @@ import com.itextpdf.text.pdf.CFFFont;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -135,7 +136,6 @@ public class Text {
                 words.remove(wordInfo);
                 if(wordInfo != null){
                     phrases.add(new Phrase(phrase, wordInfo.getEndTime().getSeconds()));
-                    System.out.println(wordInfo);
                     phrase = "";
                 }
 
@@ -235,6 +235,7 @@ public class Text {
         for(Phrase phrase: phrases){
             for(Mot mot: phrase.getMots()){
                 int distanceValue = motToCalculate.getPositionText() - mot.getPositionText();
+
                 if(motToCalculate.getMot().equals(mot.getMot())){
                     if(distanceValue < 0){
                         distanceValue = distanceValue * (-1);
@@ -246,10 +247,13 @@ public class Text {
 
             }
         }
-        Collections.sort(distances, Collections.reverseOrder());
+        Collections.sort(distances);
         if(distances.size() > 10){
             return distances.subList(0,9);
-        }else{
+        }else if(distances.size() == 0){
+            return distances;
+        }
+        else{
             return distances.subList(0,distances.size());
         }
     }
@@ -266,16 +270,20 @@ public class Text {
     public void normalizing(){
         Double min = 100.0;
         Double max = 0.0;
+        String minMot = "";
         for(Phrase phrase: phrases){
             for(Mot mot: phrase.getMots()){
-                if(mot.getSigScore() > max){
-                    max = mot.getSigScore();
-                }else if(mot.getSigScore() < min){
-                    min = mot.getSigScore();
+                if(mot.getSigScore() != 0.0) {
+                    if (mot.getSigScore() > max) {
+                        max = mot.getSigScore();
+                        minMot = mot.getMot();
+
+                    } else if (mot.getSigScore() < min) {
+                        min = mot.getSigScore();
+                    }
                 }
             }
         }
-
         for(Phrase phrase: phrases){
             for(Mot mot: phrase.getMots()){
                 mot.normalize(min, max);
@@ -300,14 +308,25 @@ public class Text {
             ++cpt;
         }
 
+        System.out.println(clusterPhrases2);
         ArrayList<Double> scores  = wordsCluster1In2(clusterPhrases1, clusterPhrases2);
         double Ap = scores.get(0);
         double Bp = scores.get(0);
         double App = scores.get(1);
         double Bpp = scores.get(1);
 
+        System.out.println("Ap "+Ap);
+        System.out.println("Bp "+Bp);
+        System.out.println("App "+App);
+        System.out.println("Bpp "+Bpp);
+        System.out.println("c1 "+clusterScore1);
+
+        System.out.println("c2 "+clusterScore2);
+
         double correspondance = (((Ap-App)/clusterScore1)+((Bp-Bpp)/clusterScore2))/2;
-        correspondances.add(correspondance);
+        if(clusterPhrases2.size() == clusterPhrases1.size()){
+            correspondances.add(correspondance);
+        }
     }
 
     ArrayList<Long> images = new ArrayList<>();
@@ -434,8 +453,8 @@ public class Text {
             for(Mot mot: phrase.getMots()){
                 boolean ok = true;
                 for(Phrase phrase2: clusterPhrases2){
-                    for(Mot mot2: phrase.getMots()){
-                        if(mot.getMot().equals(mot.getMot())){
+                    for(Mot mot2: phrase2.getMots()){
+                        if(mot.getMot().equals(mot2.getMot())){
                             score += mot.getSigScore();
                             ok = false;
                         }
@@ -471,6 +490,7 @@ public class Text {
         int cpt = 0;
         ArrayList<Double> correspondances2 = new ArrayList<>();
         correspondances2.add(correspondances.get(0));
+        System.out.println(correspondances);
 
         while(cpt < correspondances.size()-2){
 
@@ -520,17 +540,11 @@ public class Text {
         }
 
         cpt = 0;
-        System.out.println(minimums.size() + " " + maximums.size());
-        System.out.println(minimums);
-        System.out.println(maximums);
-        System.out.println(correspondances);
         while(cpt < minimums.size() && cpt < maximums.size()-1){
             Double difference1 = correspondances.get(maximums.get(cpt)) - correspondances.get(minimums.get(cpt));
             Double difference2 = correspondances.get(maximums.get(cpt+1)) - correspondances.get(minimums.get(cpt));
             Double toDiff = (difference1+difference2)/2;
-            System.out.println(correspondances.get(maximums.get(cpt))+ " " + correspondances.get(maximums.get(cpt+1)) + " "+ correspondances.get(minimums.get(cpt)) + " " +difference1 + " " + difference2 + " " +toDiff);
             if(difference1 > toDiff-cohesion && difference2 > toDiff-cohesion){
-                System.out.println("lol");
                 localMinimums.add(minimums.get(cpt));
             }else{
                 localMinimums.add(minimums.get(cpt));
@@ -550,6 +564,40 @@ public class Text {
 
     public void generateGraph() {
         ProcessBuilder pb = new ProcessBuilder("node", "generateSigGraph.js");
+        pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+        pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        try {
+            Process p = pb.start();
+            try {
+                p.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void generateGraphSigWords(){
+        ProcessBuilder pb = new ProcessBuilder("node", "generateSigGraphSigWords.js");
+        pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+        pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        try {
+            Process p = pb.start();
+            try {
+                p.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void generateGraphWithCuePhrases() {
+        ProcessBuilder pb = new ProcessBuilder("node", "generateGraphWithCuePhrases.js");
         pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
         pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         try {
@@ -695,6 +743,7 @@ public class Text {
             e.printStackTrace();
         }
 
+        phrases.get(516).read();
 
     }
 
@@ -744,7 +793,6 @@ public class Text {
 
         System.out.println(images);
         for (Long dur : images) {
-            System.out.println(dur);
 
             ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur,"-i", videoLink, "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur+".jpg", "-y");
             pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
@@ -811,6 +859,101 @@ public class Text {
         document.close();
     }
 
+    public ArrayList<Double> getWordSigValues(String word){
+        ArrayList<Double> wordValues = new ArrayList<>();
+        for(Phrase phrase: phrases){
+            Mot wordFromPhrase = phrase.getWord(word);
+            if(wordFromPhrase != null){
+                wordValues.add(wordFromPhrase.getSigScore());
+            }else{
+                wordValues.add(0.0);
+            }
+        }
+        return wordValues;
+    }
 
 
+    public void cuePhrases() {
+        ArrayList<String> cuePhrases = new ArrayList<>();
+        cuePhrases.add("actually");
+        cuePhrases.add("also");
+        cuePhrases.add("although");
+        cuePhrases.add("and");
+        cuePhrases.add("basically");
+        cuePhrases.add("because");
+        cuePhrases.add("but");
+        cuePhrases.add("essentially");
+        cuePhrases.add("except");
+        cuePhrases.add("finally");
+        cuePhrases.add("first");
+        cuePhrases.add("firstly");
+        cuePhrases.add("further");
+        cuePhrases.add("furthermore");
+        cuePhrases.add("generally");
+        cuePhrases.add("however");
+        cuePhrases.add("indeed");
+        cuePhrases.add("like");
+        cuePhrases.add("look");
+        cuePhrases.add("next");
+        cuePhrases.add("no");
+        cuePhrases.add("now");
+        cuePhrases.add("ok");
+        cuePhrases.add("or");
+        cuePhrases.add("otherwise");
+        cuePhrases.add("right");
+        cuePhrases.add("say");
+        cuePhrases.add("second");
+        cuePhrases.add("see");
+        cuePhrases.add("similarly");
+        cuePhrases.add("since");
+        cuePhrases.add("so");
+        cuePhrases.add("then");
+        cuePhrases.add("therefore");
+        cuePhrases.add("well");
+        cuePhrases.add("yes");
+
+        int score = 0;
+        ArrayList<Integer> scoreCuePhrases = new ArrayList<>();
+;        for(Phrase p: phrases){
+            score = 0;
+            for(Mot m: p.getMots()){
+                for(String s: cuePhrases){
+                    if(s.equals(m.getMot())){
+                        ++score;
+                    }
+                }
+            }
+            scoreCuePhrases.add(score);
+        }
+
+        ArrayList<Double> scoreCuePhrases2 = new ArrayList<>();
+        int cpt = 0;
+        int start = 15;
+        while(start < scoreCuePhrases.size()){
+            Double somme = 0.0;
+            cpt = start - 15;
+            while(cpt < scoreCuePhrases.size() && cpt < start){
+                somme += scoreCuePhrases.get(cpt);
+                ++cpt;
+            }
+            somme = somme / 15;
+            scoreCuePhrases2.add(somme);
+            ++start;
+        }
+
+        System.out.println(scoreCuePhrases2);
+
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("scoreCuePhrase.txt");
+            for (Double scoreCuePhrase : scoreCuePhrases2) {
+                fw.write(String.valueOf(scoreCuePhrase) + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

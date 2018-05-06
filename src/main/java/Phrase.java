@@ -20,8 +20,6 @@ public class Phrase {
     public Phrase(String phrase, long endTime) {
         this.phrase = phrase;
         this.endTime = endTime;
-        System.out.println("ici"+phrase);
-        System.out.println(endTime);
         handlePhrase();
     }
 
@@ -95,5 +93,14 @@ public class Phrase {
 
     public long getEndTime() {
         return endTime;
+    }
+
+    public Mot getWord(String word){
+        for(Mot mot: mots){
+            if(mot.getMot().equals(word)){
+                return mot;
+            }
+        }
+        return null;
     }
 }

@@ -39,6 +39,20 @@ lineReader2.on('line', function (line) {
 
 });
 
+var lineReader3 = require('readline').createInterface({
+    input: require('fs').createReadStream('scoreCuePhrase.txt')
+});
+
+var cpt3 = 0;
+var phrase3 = [];
+var corr3 = [];
+lineReader3.on('line', function (line) {
+    corr3.push(parseFloat(line));
+    phrase3.push(cpt3);
+    ++cpt3;
+
+});
+
 setTimeout(function(){ 
     var trace1 = {
         x: phrase,
@@ -60,9 +74,13 @@ setTimeout(function(){
         },
         type: "scatter"
     };
-    var data = [trace1, trace2];
-    //console.log(data);
-    var graphOptions = {filename: "Error?", fileopt: "overwrite"};
+    var trace3 = {
+        x: phrase3,
+        y: corr3,
+        type: "scatter"
+    };
+    var data = [trace1, trace2, trace3];
+    var graphOptions = {filename: "cuePhrase", fileopt: "overwrite"};
     plotly.plot(data, graphOptions, function (err, msg) {
         console.log(msg);
     }); 

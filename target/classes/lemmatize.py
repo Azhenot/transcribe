@@ -47,6 +47,7 @@ with open('subtitles.txt','r') as f:
             if a in pos_to_wornet_dict:
                 tag = pos_to_wornet_dict[a]
             newWord = lemmatizer.lemmatize(word, tag)
+#            newWord = stemmer.stem(word)
             print(lemmatizer.lemmatize(word, tag))
             if word != newWord:
                 cpt = cpt +1

@@ -52,15 +52,17 @@ public class Mot {
         int out = 0;
         double somme = 0;
         while(cpt < distances.size() && out == 0){
-            double newToAdd = Math.atan(distances.get(cpt)/(motMax/occurences));
+            double newToAdd = distances.get(cpt)/(motMax/occurences);
+            double test = distances.get(cpt)/(motMax/occurences);
             if(cpt < nValue){
+
                 somme = somme + newToAdd;
             }else{
                 out = 1;
             }
             ++cpt;
         }
-        sigScore = (1/nValue)*somme;
+        sigScore = (1/nValue)*Math.atan(somme);
     }
 
     public double getSigScore() {

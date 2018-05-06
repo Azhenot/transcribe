@@ -1,7 +1,9 @@
 import com.itextpdf.text.BadElementException;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -70,7 +72,9 @@ public class VideoTranscription {
         }
         text.localMinima(minima);
         text.writeInFileNoPdf();
-        text.generateGraph();
+        text.cuePhrases();
+        //text.generateGraph();
+        text.generateGraphWithCuePhrases();
     }
 
     public void fromSubtitles(String videoLink, String subtitles, int nbSmoothing, int clusterSize, Double minima){
@@ -89,5 +93,33 @@ public class VideoTranscription {
         text.localMinima(minima);
         text.writeInFileImageFromVideo(videoLink);
         text.generateGraph();
+    }
+
+    public void compareWordsSig(String textFile, int nbSmoothing, int clusterSize, Double minima, ArrayList<String> words){
+        Text text = new Text(textFile);
+        text.readFile();
+        text.handleTextNormal();
+        text.setOccToMots();
+        text.setPositionMots();
+        text.calculateNValueMots();
+        text.calculateSigValue();
+        ArrayList<ArrayList<Double>> wordDoubles= new ArrayList<>();
+        int nWord = 0;
+        for(String word: words){
+            FileWriter fw = null;
+            try {
+                fw = new FileWriter("wordSig"+nWord+".txt");
+                for (Double corr : text.getWordSigValues(word)){
+                    if (!String.valueOf(corr).equals("NaN") && !String.valueOf(corr).equals("-Infinity")) {
+                        fw.write(String.valueOf(corr) + "\n");
+                    }
+                }
+                fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ++nWord;
+        }
+        text.generateGraphSigWords();
     }
 }
