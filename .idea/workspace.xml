@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="62e95dd2-5ef5-4084-a957-123ce706215d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/subtitlesResult.pdf" afterPath="$PROJECT_DIR$/subtitlesResult.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Mot.class" afterPath="$PROJECT_DIR$/target/classes/Mot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Phrase.class" afterPath="$PROJECT_DIR$/target/classes/Phrase.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Text.class" afterPath="$PROJECT_DIR$/target/classes/Text.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/VideoTranscription.class" afterPath="$PROJECT_DIR$/target/classes/VideoTranscription.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generateSigGraph.js" afterPath="$PROJECT_DIR$/generateSigGraph.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outText.txt" afterPath="$PROJECT_DIR$/outText.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outTextMinimums.txt" afterPath="$PROJECT_DIR$/outTextMinimums.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Mot.java" afterPath="$PROJECT_DIR$/src/main/java/Mot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Phrase.java" afterPath="$PROJECT_DIR$/src/main/java/Phrase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Text.java" afterPath="$PROJECT_DIR$/src/main/java/Text.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/VideoTranscription.java" afterPath="$PROJECT_DIR$/src/main/java/VideoTranscription.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/lemmatize.py" afterPath="$PROJECT_DIR$/src/main/resources/lemmatize.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/lemmatize.py" afterPath="$PROJECT_DIR$/target/classes/lemmatize.py" />
-    </list>
+    <list default="true" id="62e95dd2-5ef5-4084-a957-123ce706215d" name="Default" comment="" />
     <ignored path="transcribe.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -74,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/Text.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.33274022">
-              <caret line="932" column="30" selection-start-line="932" selection-start-column="30" selection-end-line="932" selection-end-column="30" />
+              <caret line="615" column="16" selection-start-line="615" selection-start-column="16" selection-end-line="615" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/VideoTranscription.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="74" column="19" selection-start-line="74" selection-start-column="19" selection-end-line="74" selection-end-column="19" />
+              <caret line="40" column="26" selection-start-line="40" selection-start-column="26" selection-end-line="40" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -853,12 +835,12 @@
       <workItem from="1525363594457" duration="3870000" />
       <workItem from="1525431280126" duration="14005000" />
       <workItem from="1525530061924" duration="827000" />
-      <workItem from="1525614831628" duration="2499000" />
+      <workItem from="1525614831628" duration="2511000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78801000" />
+    <option name="totallyTimeSpent" value="78813000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -870,8 +852,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -880,7 +862,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5021322" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13219616" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1343,14 +1325,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/VideoTranscription.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="19" selection-start-line="74" selection-start-column="19" selection-end-line="74" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1361,10 +1335,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/VideoTranscription.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="26" selection-start-line="40" selection-start-column="26" selection-end-line="40" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Text.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33274022">
-          <caret line="932" column="30" selection-start-line="932" selection-start-column="30" selection-end-line="932" selection-end-column="30" />
+          <caret line="615" column="16" selection-start-line="615" selection-start-column="16" selection-end-line="615" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
