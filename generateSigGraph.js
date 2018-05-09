@@ -43,13 +43,14 @@ setTimeout(function(){
     var trace1 = {
         x: phrase,
         y: corr,
-        type: "scatter"
+        type: "scatter",
+        name: "Correspondance Score",
     };
     var trace2 = {
         x: phrase2,
         y: corr2,
         mode: "markers",
-        name: "Minimums",
+        name: "Minima",
         marker: {
             color: "rgb(255, 217, 102)",
             size: 12,
@@ -61,8 +62,8 @@ setTimeout(function(){
         type: "scatter"
     };
     var data = [trace1, trace2];
-    //console.log(data);
-    var graphOptions = {filename: "Error?", fileopt: "overwrite"};
+    console.log(data);
+    var graphOptions = {filename: "Smoothing", fileopt: "overwrite"};
     plotly.plot(data, graphOptions, function (err, msg) {
         console.log(msg);
     }); 

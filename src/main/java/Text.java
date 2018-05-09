@@ -28,6 +28,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -159,6 +160,30 @@ public class Text {
                 ++cptMots;
             }
             if( c == '.' || c == '?' || c == '!'/*cptMots == 15*/){
+                //If line is a timestamp, saved and phrase gets reference
+                phrases.add(new Phrase(phrase));
+                phrase = "";
+                cptMots = 0;
+            }
+
+        }
+    }
+
+    public void handleTextNormalTaille() {
+        text = text.toLowerCase();
+        text.replace("/\n"," ");
+        text.trim();
+        text = text.replace("  "," ");//2 or more space to 1
+        String phrase = "";
+        int cptMots = 0;
+        for(int i = 0; i < text.length(); i++)
+        {
+            char c = text.charAt(i);
+            phrase += c;
+            if(c == ' '){
+                ++cptMots;
+            }
+            if( cptMots == 15){
                 //If line is a timestamp, saved and phrase gets reference
                 phrases.add(new Phrase(phrase));
                 phrase = "";
@@ -304,6 +329,49 @@ public class Text {
             }else if(cpt >= debut+clusterSize && cpt < debut+(clusterSize*2)){
                 clusterPhrases2.add(phrases.get(cpt));
                 clusterScore2 += phrases.get(cpt).getScore();
+            }
+            ++cpt;
+        }
+
+        System.out.println(clusterPhrases2);
+        ArrayList<Double> scores  = wordsCluster1In2(clusterPhrases1, clusterPhrases2);
+        double Ap = scores.get(0);
+        double Bp = scores.get(0);
+        double App = scores.get(1);
+        double Bpp = scores.get(1);
+
+        System.out.println("Ap "+Ap);
+        System.out.println("Bp "+Bp);
+        System.out.println("App "+App);
+        System.out.println("Bpp "+Bpp);
+        System.out.println("c1 "+clusterScore1);
+
+        System.out.println("c2 "+clusterScore2);
+
+        double correspondance = (((Ap-App)/clusterScore1)+((Bp-Bpp)/clusterScore2))/2;
+        if(clusterPhrases2.size() == clusterPhrases1.size()){
+            correspondances.add(correspondance);
+        }
+    }
+
+    public void breakPointPoints2(int debut, int clusterSize) {
+        int cpt = debut;
+        ArrayList<Phrase> clusterPhrases1 = new ArrayList<>();
+        ArrayList<Phrase> clusterPhrases2 = new ArrayList<>();
+        double clusterScore1 = 0;
+        double clusterScore2 = 0;
+        double max1 = 0;
+        double max2 = 0;
+
+        while(cpt < phrases.size() && cpt < debut+(clusterSize*2)){
+            if(cpt < debut+clusterSize){
+                clusterPhrases1.add(phrases.get(cpt));
+                clusterScore1 += phrases.get(cpt).getMots().size();
+                max1 += phrases.get(cpt).getScore();
+            }else if(cpt >= debut+clusterSize && cpt < debut+(clusterSize*2)){
+                clusterPhrases2.add(phrases.get(cpt));
+                clusterScore2 += phrases.get(cpt).getMots().size();
+                max2 += phrases.get(cpt).getScore();
             }
             ++cpt;
         }
@@ -743,7 +811,6 @@ public class Text {
             e.printStackTrace();
         }
 
-        phrases.get(516).read();
 
     }
 
@@ -871,6 +938,82 @@ public class Text {
         }
         return wordValues;
     }
+
+    public ArrayList<Mot> getBestWordSigValues(){
+        ArrayList<Mot> wordValues = new ArrayList<>();
+
+        for(Phrase phrase: phrases){
+            wordValues.addAll(phrase.getMots());
+        }
+        System.out.println(wordValues);
+        wordValues.sort(new comparerMot());
+        return wordValues;
+    }
+
+    public void taille() {
+        ArrayList<Integer> taille = new ArrayList<>();
+        int cpt = 0;
+        int cpt2 =0;
+        int one = 0;
+        int two = 0;
+        while(cpt < phrases.size() - 30){
+            one = 0;
+            two = 0;
+            cpt2 = cpt;
+            while(cpt2 < cpt + 15){
+                System.out.println("ici");
+                one += phrases.get(cpt2).getMots().size();
+                ++cpt2;
+            }
+            while(cpt2 >= cpt + 15 && cpt2 < cpt + 30) {
+                System.out.println(phrases.get(cpt).getMots().size());
+                two += phrases.get(cpt2).getMots().size();
+                ++cpt2;
+            }
+            taille.add((one-two));
+            ++cpt;
+        }
+
+
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("sizePhrase.txt");
+            for (int corr : taille) {
+                fw.write(String.valueOf(corr) + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ProcessBuilder pb = new ProcessBuilder("node", "sizePhrase.js");
+        pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+        pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        try {
+            Process p = pb.start();
+            try {
+                p.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    class comparerMot implements Comparator<Mot> {
+
+        @Override
+        public int compare(Mot e1, Mot e2) {
+            if(e1.getSigScore() < e2.getSigScore()){
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+    }
+
 
 
     public void cuePhrases() {

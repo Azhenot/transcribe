@@ -38,7 +38,7 @@ stemmer = PorterStemmer()
 cpt = 0
 text = ""
 
-with open('subtitles.txt','r') as f:
+with open('testTest.txt','r') as f:
     for line in f:
         for word in line.split():
             print(word)
@@ -46,8 +46,8 @@ with open('subtitles.txt','r') as f:
             tag = 'n'
             if a in pos_to_wornet_dict:
                 tag = pos_to_wornet_dict[a]
-            newWord = lemmatizer.lemmatize(word, tag)
-#            newWord = stemmer.stem(word)
+#            newWord = lemmatizer.lemmatize(word, tag)
+            newWord = stemmer.stem(word)
             print(lemmatizer.lemmatize(word, tag))
             if word != newWord:
                 cpt = cpt +1
@@ -56,7 +56,7 @@ with open('subtitles.txt','r') as f:
 print(text)
 print(cpt)
 
-file = open("testTest.txt", "w")
+file = open("StemLem.txt", "w")
 file.write(text)
 file.close()
             

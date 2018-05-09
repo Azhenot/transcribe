@@ -77,6 +77,28 @@ public class VideoTranscription {
         text.generateGraphWithCuePhrases();
     }
 
+    public void fromTextTaille(String textFile, int nbSmoothing, int clusterSize, Double minima) {
+        Text text = new Text(textFile);
+        text.readFile();
+        text.handleTextNormalTaille();
+        text.setOccToMots();
+        text.setPositionMots();
+        text.calculateNValueMots();
+        text.calculateSigValue();
+        text.calculateCorrespondances(clusterSize);
+        int i = 0;
+        while(i < nbSmoothing){
+            text.smoothing();
+            ++i;
+        }
+        text.localMinima(minima);
+        text.writeInFileNoPdf();
+        text.cuePhrases();
+        //text.generateGraph();
+        text.generateGraphWithCuePhrases();
+    }
+
+
     public void fromSubtitles(String videoLink, String subtitles, int nbSmoothing, int clusterSize, Double minima){
         Text text = new Text(subtitles);
         text.readFileSubtitles();
@@ -97,12 +119,16 @@ public class VideoTranscription {
 
     public void compareWordsSig(String textFile, int nbSmoothing, int clusterSize, Double minima, ArrayList<String> words){
         Text text = new Text(textFile);
+
         text.readFile();
         text.handleTextNormal();
         text.setOccToMots();
         text.setPositionMots();
         text.calculateNValueMots();
         text.calculateSigValue();
+        /*for(Mot mot: text.getBestWordSigValues()){
+            System.out.println(mot.getMot() + " " + mot.getSigScore());
+        }*/
         ArrayList<ArrayList<Double>> wordDoubles= new ArrayList<>();
         int nWord = 0;
         for(String word: words){
@@ -121,5 +147,17 @@ public class VideoTranscription {
             ++nWord;
         }
         text.generateGraphSigWords();
+    }
+
+    public void sizePhrases(String s) {
+        Text text = new Text(s);
+        text.readFile();
+        text.handleTextNormal();
+        text.setOccToMots();
+        text.setPositionMots();
+        text.calculateNValueMots();
+        text.calculateSigValue();
+        text.calculateCorrespondances(15);
+        text.taille();
     }
 }
