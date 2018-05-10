@@ -94,8 +94,8 @@ public class VideoTranscription {
         text.localMinima(minima);
         text.writeInFileNoPdf();
         text.cuePhrases();
-        //text.generateGraph();
-        text.generateGraphWithCuePhrases();
+        text.generateGraph();
+        //text.generateGraphWithCuePhrases();
     }
 
 

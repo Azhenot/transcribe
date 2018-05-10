@@ -67,7 +67,6 @@ public class Text {
                     text += " ";
                 }
             }
-            //System.out.println("Text: "+text);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -106,7 +105,6 @@ public class Text {
                     text += " ";
                 }
             }
-            //System.out.println("Text: "+text);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -333,12 +331,17 @@ public class Text {
             ++cpt;
         }
 
-        System.out.println(clusterPhrases2);
+        System.out.println("SIZE"+clusterPhrases1.size());
+        System.out.println("SIZE2"+clusterPhrases2.size());
+
         ArrayList<Double> scores  = wordsCluster1In2(clusterPhrases1, clusterPhrases2);
         double Ap = scores.get(0);
-        double Bp = scores.get(0);
         double App = scores.get(1);
-        double Bpp = scores.get(1);
+        double Bp = scores.get(2);
+        double Bpp = scores.get(3);
+        clusterScore1 = scores.get(4);
+        clusterScore2 = scores.get(5);
+
 
         System.out.println("Ap "+Ap);
         System.out.println("Bp "+Bp);
@@ -366,12 +369,10 @@ public class Text {
         while(cpt < phrases.size() && cpt < debut+(clusterSize*2)){
             if(cpt < debut+clusterSize){
                 clusterPhrases1.add(phrases.get(cpt));
-                clusterScore1 += phrases.get(cpt).getMots().size();
-                max1 += phrases.get(cpt).getScore();
+                clusterScore1 += phrases.get(cpt).getScore();
             }else if(cpt >= debut+clusterSize && cpt < debut+(clusterSize*2)){
                 clusterPhrases2.add(phrases.get(cpt));
-                clusterScore2 += phrases.get(cpt).getMots().size();
-                max2 += phrases.get(cpt).getScore();
+                clusterScore2 += phrases.get(cpt).getScore();
             }
             ++cpt;
         }
@@ -443,10 +444,7 @@ public class Text {
 
 
 
-        System.out.println(images);
         for (Long dur : images) {
-            System.out.println(dur);
-
             ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur,"-i", videoLink, "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur+".jpg", "-y");
             pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
             pb.redirectError(ProcessBuilder.Redirect.INHERIT);
@@ -516,13 +514,15 @@ public class Text {
     public ArrayList<Double> wordsCluster1In2(ArrayList<Phrase> clusterPhrases1, ArrayList<Phrase>  clusterPhrases2){
         double score = 0;
         double score2 = 0;
+        double scoreCluster1 = 0;
+
 
         for(Phrase phrase: clusterPhrases1){
             for(Mot mot: phrase.getMots()){
                 boolean ok = true;
                 for(Phrase phrase2: clusterPhrases2){
                     for(Mot mot2: phrase2.getMots()){
-                        if(mot.getMot().equals(mot2.getMot())){
+                        if(mot.getMot().equals(mot2.getMot()) && ok){
                             score += mot.getSigScore();
                             ok = false;
                         }
@@ -531,17 +531,44 @@ public class Text {
                 if(ok){
                     score2 += mot.getSigScore();
                 }
+                scoreCluster1 += mot.getSigScore();
             }
         }
         ArrayList<Double> toReturn  = new ArrayList<>();
         toReturn.add(score);
         toReturn.add(score2);
+
+        double scoreB = 0;
+        double scoreB2 = 0;
+        double scoreCluster2 = 0;
+
+        for(Phrase phrase: clusterPhrases2){
+            for(Mot mot: phrase.getMots()){
+                boolean ok = true;
+                for(Phrase phrase2: clusterPhrases1){
+                    for(Mot mot2: phrase2.getMots()){
+                        if(mot.getMot().equals(mot2.getMot()) && ok){
+                            scoreB += mot.getSigScore();
+                            ok = false;
+                        }
+                    }
+                }
+                if(ok){
+                    scoreB2 += mot.getSigScore();
+                }
+                scoreCluster2 += mot.getSigScore();
+            }
+        }
+        toReturn.add(scoreB);
+        toReturn.add(scoreB2);
+        toReturn.add(scoreCluster1);
+        toReturn.add(scoreCluster2);
+
         return toReturn;
     }
 
     public void calculateCorrespondances(int clusterSize){
         int cpt = 0;
-        System.out.println("size phrases: "+phrases.size());
         while(cpt < phrases.size()){
             breakPointPoints(cpt, clusterSize);
             ++cpt;
@@ -558,7 +585,6 @@ public class Text {
         int cpt = 0;
         ArrayList<Double> correspondances2 = new ArrayList<>();
         correspondances2.add(correspondances.get(0));
-        System.out.println(correspondances);
 
         while(cpt < correspondances.size()-2){
 
@@ -858,7 +884,6 @@ public class Text {
 
 
 
-        System.out.println(images);
         for (Long dur : images) {
 
             ProcessBuilder pb = new ProcessBuilder("ffmpeg", "-ss",""+dur,"-i", videoLink, "-vframes", "1", "-s", "480x300", "-f", "image2", "imagefile"+dur+".jpg", "-y");
@@ -945,7 +970,6 @@ public class Text {
         for(Phrase phrase: phrases){
             wordValues.addAll(phrase.getMots());
         }
-        System.out.println(wordValues);
         wordValues.sort(new comparerMot());
         return wordValues;
     }
@@ -961,12 +985,10 @@ public class Text {
             two = 0;
             cpt2 = cpt;
             while(cpt2 < cpt + 15){
-                System.out.println("ici");
                 one += phrases.get(cpt2).getMots().size();
                 ++cpt2;
             }
             while(cpt2 >= cpt + 15 && cpt2 < cpt + 30) {
-                System.out.println(phrases.get(cpt).getMots().size());
                 two += phrases.get(cpt2).getMots().size();
                 ++cpt2;
             }
@@ -1084,7 +1106,6 @@ public class Text {
             ++start;
         }
 
-        System.out.println(scoreCuePhrases2);
 
         FileWriter fw = null;
         try {

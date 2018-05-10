@@ -51,16 +51,10 @@ public class Mot {
         int cpt = 0;
         int out = 0;
         double somme = 0;
-        if(mot.equals("ford")){
-            System.out.println(distances);
-            System.out.println(nValue);
-        }
+
         while(cpt < distances.size() && out == 0){
                 double newToAdd = distances.get(cpt)/(motMax/occurences);
             if(cpt < nValue ){
-                if(mot.equals("ford")){
-                    System.out.println(cpt);
-                }
                 somme = somme + Math.atan(newToAdd);
             }else{
                 out = 1;

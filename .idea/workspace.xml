@@ -3,24 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="62e95dd2-5ef5-4084-a957-123ce706215d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/subtitlesResult.pdf" afterPath="$PROJECT_DIR$/subtitlesResult.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Mot.class" afterPath="$PROJECT_DIR$/target/classes/Mot.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Text$comparerMot.class" afterPath="$PROJECT_DIR$/target/classes/Text$comparerMot.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Text.class" afterPath="$PROJECT_DIR$/target/classes/Text.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/VideoTranscription.class" afterPath="$PROJECT_DIR$/target/classes/VideoTranscription.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generateSigGraph.js" afterPath="$PROJECT_DIR$/generateSigGraph.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generateSigGraphSigWords.js" afterPath="$PROJECT_DIR$/generateSigGraphSigWords.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outText.txt" afterPath="$PROJECT_DIR$/outText.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outTextMinimums.txt" afterPath="$PROJECT_DIR$/outTextMinimums.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scoreCuePhrase.txt" afterPath="$PROJECT_DIR$/scoreCuePhrase.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Mot.java" afterPath="$PROJECT_DIR$/src/main/java/Mot.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Text.java" afterPath="$PROJECT_DIR$/src/main/java/Text.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/VideoTranscription.java" afterPath="$PROJECT_DIR$/src/main/java/VideoTranscription.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/lemmatize.py" afterPath="$PROJECT_DIR$/src/main/resources/lemmatize.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/lemmatize.py" afterPath="$PROJECT_DIR$/target/classes/lemmatize.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wordSig0.txt" afterPath="$PROJECT_DIR$/wordSig0.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wordSig1.txt" afterPath="$PROJECT_DIR$/wordSig1.txt" />
     </list>
     <ignored path="transcribe.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,8 +40,8 @@
       <file leaf-file-name="Phrase.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Phrase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="16" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
+            <state vertical-scroll-proportion="-6.448276">
+              <caret line="75" column="10" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -57,33 +50,32 @@
       <file leaf-file-name="Mot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Mot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="70" column="20" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="20" />
-              <folding>
-                <element signature="e#1759#1760#0" expanded="true" />
-                <element signature="e#1790#1791#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-4.1034484">
+              <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Text.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Text.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Text.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.3629893">
-              <caret line="400" column="0" selection-start-line="400" selection-start-column="0" selection-end-line="400" selection-end-column="0" />
+            <state vertical-scroll-proportion="-11.724138">
+              <caret line="549" column="67" selection-start-line="549" selection-start-column="67" selection-end-line="549" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3895#3896#0" expanded="true" />
+                <element signature="e#3935#3936#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.9137056">
+              <caret line="54" column="1" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -113,7 +105,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/VideoTranscription.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+              <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -156,10 +148,10 @@
         <option value="$PROJECT_DIR$/src/main/java/Graphique.java" />
         <option value="$PROJECT_DIR$/src/main/java/TFIDFCalculator.java" />
         <option value="$PROJECT_DIR$/src/main/java/Phrase.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Mot.java" />
         <option value="$PROJECT_DIR$/src/main/java/VideoTranscription.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Mot.java" />
         <option value="$PROJECT_DIR$/src/main/java/Text.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
       </list>
     </option>
   </component>
@@ -230,6 +222,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -306,7 +299,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -822,11 +814,13 @@
       <workItem from="1525786159633" duration="6385000" />
       <workItem from="1525806118257" duration="2454000" />
       <workItem from="1525842805412" duration="7806000" />
+      <workItem from="1525857711752" duration="4000" />
+      <workItem from="1525939650899" duration="3041000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96835000" />
+    <option name="totallyTimeSpent" value="99880000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -839,7 +833,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -848,7 +842,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5021322" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13219616" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -935,6 +929,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3895#3896#0" expanded="true" />
+            <element signature="e#3935#3936#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -989,6 +985,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3895#3896#0" expanded="true" />
+            <element signature="e#3935#3936#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1043,6 +1041,8 @@
           <caret line="128" column="7" selection-start-line="128" selection-start-column="7" selection-end-line="128" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3895#3896#0" expanded="true" />
+            <element signature="e#3935#3936#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1218,14 +1218,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Phrase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="16" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TFIDFCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1234,40 +1226,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Mot.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/VideoTranscription.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="20" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="20" />
-          <folding>
-            <element signature="e#1759#1760#0" expanded="true" />
-            <element signature="e#1790#1791#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
+          <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/VideoTranscription.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Mot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+        <state vertical-scroll-proportion="-4.1034484">
+          <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Phrase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.448276">
+          <caret line="75" column="10" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Text.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3629893">
-          <caret line="400" column="0" selection-start-line="400" selection-start-column="0" selection-end-line="400" selection-end-column="0" />
+        <state vertical-scroll-proportion="-11.724138">
+          <caret line="549" column="67" selection-start-line="549" selection-start-column="67" selection-end-line="549" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3895#3896#0" expanded="true" />
+            <element signature="e#3935#3936#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9137056">
+          <caret line="54" column="1" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
