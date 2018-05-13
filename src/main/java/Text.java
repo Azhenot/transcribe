@@ -741,7 +741,7 @@ public class Text {
                 RecognitionConfig config = RecognitionConfig.newBuilder()
                         //.setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
                         .setSampleRateHertz(16000)
-                        .setLanguageCode("en-US")
+                        .setLanguageCode("fr-FR")
                         .setEnableWordTimeOffsets(true)
                         .setEnableAutomaticPunctuation(true)
                         .build();

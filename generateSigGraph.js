@@ -63,7 +63,7 @@ setTimeout(function(){
     };
     var data = [trace1, trace2];
     console.log(data);
-    var graphOptions = {filename: "Smoothing", fileopt: "overwrite"};
+    var graphOptions = {filename: "Stem Lem Final no smoothing", fileopt: "overwrite"};
     plotly.plot(data, graphOptions, function (err, msg) {
         console.log(msg);
     }); 

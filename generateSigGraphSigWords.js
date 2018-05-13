@@ -68,25 +68,46 @@ setTimeout(function(){
         y: corr,
         mode: "markers",
         type: "scatter",
-        name: "WordOne"
+        name: "The",
+        marker: {
+            size: 12,
+            line: {
+            color: "yellow",
+            width: 0.5
+            }
+        }
     };
     var trace2 = {
         x: phrase2,
         y: corr2,
         mode: "markers",
         type: "scatter",
-        name: "WordTwo"
+        name: "Fibonacci",
+        marker: {
+            size: 12,
+            line: {
+            color: "green",
+            width: 0.5
+            }
+        }
     };
     var trace3 = {
         x: phrase3,
         y: corr3,
         mode: "markers",
         type: "scatter",
-        name: "WordThree"
+        name: "Ford",
+        marker: {
+            size: 12,
+            line: {
+            color: "blue",
+            width: 0.5
+            }
+        }
     };
     var data = [trace1, trace2, trace3];
     //console.log(data);
-    var graphOptions = {filename: "Sig Words 3", fileopt: "overwrite"};
+    var graphOptions = {filename: "Sig words", fileopt: "overwrite"};
     plotly.plot(data, graphOptions, function (err, msg) {
         console.log(msg);
     }); 
