@@ -2,7 +2,7 @@
 
 ## Prerequisites:
 
-1. Have FFMPEG installed at least version 4.0 for extracting pictures of video.
+1. Have FFMPEG installed at least version 4.0 for extracting pictures of video and extracting WAV audio file of Video.
 2. Have Python installed at least version 3.6 for pre-processing Text.
 3. Maven project to get dependencies.
 4. Have an account as google developer and generate API.json key for google speech.
