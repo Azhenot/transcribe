@@ -29,15 +29,15 @@ public class Main {
 
         VideoTranscription t = new VideoTranscription();
         //t.videoToWav("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\moi.MOV");
-        //t.googleSpeech("gs://videosmasi/moi.wav", "moi.MOV", 8, 15, 5.0);
-        t.fromText("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\StemLemFinal.txt", 0, 15, 5.0);
-        //t.fromSubtitles("videoMIT.mp4", "subs with time.txt", 50, 20, 5.0);
+        t.googleSpeech(".\\src\\main\\resources\\key.json", "gs://videosmasi/moi.wav", "moi.MOV", 8, 15);
+        t.fromText("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\StemLemFinal.txt", 0, 15);
+        t.fromSubtitles("videoMIT.mp4", "subs with time.txt", 50, 20);
         //t.fromTextTaille("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\testTest.txt", 25, 15, 5.0);
-        //ArrayList<String> words = new ArrayList<>();
-        //words.add("the");
-        //words.add("fibonacci");
-        //words.add("ford");
-        //t.compareWordsSig("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\StemLemFinal.txt", 50, 15, 5.0, words);
+        ArrayList<String> words = new ArrayList<>();
+        words.add("the");
+        words.add("fibonacci");
+        words.add("ford");
+        t.compareWordsSig("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\StemLemFinal.txt", 50, 15, words);
 
         //t.sizePhrases("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\testTest.txt");
 

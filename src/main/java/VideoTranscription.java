@@ -35,9 +35,9 @@ public class VideoTranscription {
         }
     }
 
-    public void googleSpeech(String soundLink, String videoLink, int nbSmoothing, int clusterSize, Double minima) {
+    public void googleSpeech(String googleApiKeyLink, String soundLink, String videoLink, int nbSmoothing, int clusterSize) {
 
-        Text text = new Text(".\\src\\main\\resources\\textGoogleTranscription.txt");
+        Text text = new Text(googleApiKeyLink);
         text.transcribeGoogleSpeech(soundLink);
         text.readFile();
         text.handleTextGoogleSpeech();
@@ -51,12 +51,12 @@ public class VideoTranscription {
             text.smoothing();
             ++i;
         }
-        text.localMinima(minima);
+        text.localMinima(0.0);
         text.writeInFileGoogleSpeech(videoLink);
         text.generateGraph();
     }
 
-    public void fromText(String textFile, int nbSmoothing, int clusterSize, Double minima) {
+    public void fromText(String textFile, int nbSmoothing, int clusterSize) {
         Text text = new Text(textFile);
         text.readFile();
         text.handleTextNormal();
@@ -70,14 +70,14 @@ public class VideoTranscription {
             text.smoothing();
             ++i;
         }
-        text.localMinima(minima);
+        text.localMinima(0.0);
         text.writeInFileNoPdf();
         text.cuePhrases();
         //text.generateGraph();
         text.generateGraphWithCuePhrases();
     }
 
-    public void fromTextTaille(String textFile, int nbSmoothing, int clusterSize, Double minima) {
+    public void fromTextTaille(String textFile, int nbSmoothing, int clusterSize) {
         Text text = new Text(textFile);
         text.readFile();
         text.handleTextNormalTaille();
@@ -91,7 +91,7 @@ public class VideoTranscription {
             text.smoothing();
             ++i;
         }
-        text.localMinima(minima);
+        text.localMinima(0.0);
         text.writeInFileNoPdf();
         text.cuePhrases();
         text.generateGraph();
@@ -99,7 +99,7 @@ public class VideoTranscription {
     }
 
 
-    public void fromSubtitles(String videoLink, String subtitles, int nbSmoothing, int clusterSize, Double minima){
+    public void fromSubtitles(String videoLink, String subtitles, int nbSmoothing, int clusterSize){
         Text text = new Text(subtitles);
         text.readFileSubtitles();
         text.setOccToMots();
@@ -112,12 +112,12 @@ public class VideoTranscription {
             text.smoothing();
             ++i;
         }
-        text.localMinima(minima);
+        text.localMinima(0.0);
         text.writeInFileImageFromVideo(videoLink);
         text.generateGraph();
     }
 
-    public void compareWordsSig(String textFile, int nbSmoothing, int clusterSize, Double minima, ArrayList<String> words){
+    public void compareWordsSig(String textFile, int nbSmoothing, int clusterSize, ArrayList<String> words){
         Text text = new Text(textFile);
 
         text.readFile();
