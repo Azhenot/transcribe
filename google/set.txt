@@ -1,1 +1,0 @@
-set GOOGLE_APPLICATION_CREDENTIALS=C:/Users/Tristan/Documents/GitHub/Significance-score/google/TravelMasi-a58ea84c6619.json
