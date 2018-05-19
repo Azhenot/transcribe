@@ -14,7 +14,7 @@
 
 ### googleSpeech:
 1. String => Path to file containing the JSON api key for Google Speech.
-2. String => Link to (PUBLIC or PRIVATE) file contained in a google storage bukket.
+2. String => Link to (PUBLIC or PRIVATE) .WAV file contained in a google storage bukket.
 3. String => Path to video File.
 4. Integer => Number of times to smooth the graph. 8 times being the minimum. 50 times works good to remove any false positive.
 5. Integer => Size of cluster of phrases. 15 times being the minimum recommended. 20-25 has tendency to have better results.
