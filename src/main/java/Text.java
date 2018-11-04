@@ -131,8 +131,11 @@ public class Text {
             word += c;
             phrase += c;
             if( c == '.' || c == '?' || c == '!'/*cptMots == 15*/){
+                System.out.println("ici1 :" + word);
                 WordInfo wordInfo = getWordInfo(word.trim());
                 words.remove(wordInfo);
+                System.out.println("ici2: " + wordInfo);
+
                 if(wordInfo != null){
                     phrases.add(new Phrase(phrase, wordInfo.getEndTime().getSeconds()));
                     phrase = "";
@@ -707,11 +710,11 @@ public class Text {
         }
     }
 
-    public void transcribeGoogleSpeech(String videoLink){
+    public void transcribeGoogleSpeech(String videoLink, String apiKey){
 
         CredentialsProvider credentialsProvider = null;
         try {
-            credentialsProvider = FixedCredentialsProvider.create(ServiceAccountCredentials.fromStream(new FileInputStream("C:/Users/Tristan/Documents/GitHub/Significance-score/google/TravelMasi-06c5ced3936a.json")));
+            credentialsProvider = FixedCredentialsProvider.create(ServiceAccountCredentials.fromStream(new FileInputStream(apiKey)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -741,7 +744,7 @@ public class Text {
                 RecognitionConfig config = RecognitionConfig.newBuilder()
                         //.setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
                         .setSampleRateHertz(16000)
-                        .setLanguageCode("fr-FR")
+                        .setLanguageCode("en-US")
                         .setEnableWordTimeOffsets(true)
                         .setEnableAutomaticPunctuation(true)
                         .build();

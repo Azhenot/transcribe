@@ -1,19 +1,7 @@
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.pdf.PdfWriter;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by Tristan on 23-04-18.
@@ -22,26 +10,61 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*EventQueue.invokeLater(() -> {
-            Graphique ex = new Graphique();
-            ex.setVisible(true);
-        });*/
-
-        VideoTranscription t = new VideoTranscription();
-        //t.videoToWav("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\moi.MOV");
-        t.googleSpeech(".\\src\\main\\resources\\key.json", "gs://videosmasi/moi.wav", "moi.MOV", 8, 15);
-        t.fromText("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\StemLemFinal.txt", 0, 15);
-        t.fromSubtitles("videoMIT.mp4", "subs with time.txt", 50, 20);
-        //t.fromTextTaille("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\testTest.txt", 25, 15, 5.0);
-        ArrayList<String> words = new ArrayList<>();
-        words.add("the");
-        words.add("fibonacci");
-        words.add("ford");
-        t.compareWordsSig("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\StemLemFinal.txt", 50, 15, words);
-
-        //t.sizePhrases("C:\\Users\\Tristan\\Documents\\GitHub\\transcribe\\src\\main\\resources\\testTest.txt");
 
 
+
+    }
+
+    List<List<Integer>> nearestXsteakHouses(int totalSteakhouses,
+                                            List<List<Integer>> allLocations,
+                                            int numSteakhouses)
+    {
+        List<List> all = new ArrayList<List>(allLocations);
+
+        List<RestaurantDistance> restaurants = new ArrayList<RestaurantDistance>();
+
+        int cpt = 0;
+        while(cpt < all.size()){
+            List<Integer> temp = new ArrayList<Integer>(all.get(cpt));
+            restaurants.add(new RestaurantDistance(temp.get(0),temp.get(1)));
+            ++cpt;
+        }
+
+        Collections.sort(restaurants);
+        List<List<Integer>> solutions = new ArrayList<List<Integer>>();
+        cpt = 0;
+        while(cpt < numSteakhouses){
+            List<Integer> restaurant = new ArrayList<Integer>();
+            restaurant.add(restaurants.get(cpt).x);
+            restaurant.add(restaurants.get(cpt).y);
+            solutions.add(restaurant);
+        }
+
+        return solutions;
+
+    }
+    private class RestaurantDistance implements Comparable<RestaurantDistance> {
+
+        public Integer x;
+        public Integer y;
+        public double distance;
+
+        RestaurantDistance(Integer x, Integer y){
+            this.x = x;
+            this.y = y;
+            this.distance = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+        }
+
+        @Override
+        public int compareTo(RestaurantDistance other) {
+            if(other.distance > this.distance){
+                return 1;
+            }else if(other.distance < this.distance){
+                return -1;
+            }else{
+                return 0;
+            }
+        }
     }
 
     /*public class SimpleEx extends JFrame {

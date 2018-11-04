@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "travelmasi-166603",
+  "private_key_id": "06c5ced3936a67194cee0c7b813212d9c79e008b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDhIuS54QNvV9/r\nd3Hngb1VnZyldPolNhWlncK7WKoyZBgZ2XwFSZkeZTNDzv9ZR9XcBfRQDo6WtL36\nbRgML4x1c08kbgw8R8tQaEUJh+iEtxp8/Us2EpXMydLUFcdrTJH4xyAvb3DGX0mv\nPOvF4ytSUl574sXi64csul8P09ZMDuBXXOT8XWaNNLjEn49omv2fUaATHUDqPXLz\nNINdbo1N/jwCV8bSHn+xGgJqrgEyrWSJlAiTn4kNTleoeG8LgusCrrjKBbqBS8CY\ng/JSY0RnWXJHRmcHJHEJAY3LGIaI1LDJ1ZXbzRnEm2catgFQJNzk0kDtPGqEcJzb\nARR4LG01AgMBAAECggEAN8AxTcpn1Fm5bJDelwqsvRfTo7FtBGv5PlLr1wLk2qeo\nxDX0HUcVcM50vHT1DMHaNqsOzghczPsjFHGRg+r+aFNOpOHPi9nnghjgB7UtIjhJ\niewbhN9jUxwjZjuib3K9rxJ4aOa60ZTlJUz7wbw4jSEynpEQmdnjVnMseTnnFlwd\nlWn8Yrx4dxRfQSER7v1z+6LAfIRjx11AhZO60nlxPJ4UOFzSo5eHa6N9Wp2iJR9I\nhZM7R2qxVJXUnvyVGGy6LUT/IH4wsTfxrEPmyrEGqZb9dET2YsWNSxeqM5SKCMRt\nTE8cc+pQC8d0fbQlh1zguwXHYsltp8cfmZnBqKBGgQKBgQD/nLudn3AyUV1SKblE\n/POC4NQxuZ2TpbLmdvbA1Oa63cYJUIYKgUed9dKDKTlyQYraCXaEwRaEhI24AhrP\nSJogzZnu//SfjMXW/PffdPX+FLgM5vt2AsZjujfO8jftTaMX2XKyW6R3k/LnPvwv\nmUDrMT7CO3tCg+ZWD7ynYFSSFQKBgQDhelNDOABZzJ6v6nGjp4bwCjXgkQqwwfo3\nYtMy28BQaRGd57QQcvDMcxD3N5Cn8qyOLZahvGN+q2/7hZl0VbUGbvRBadK/MKT5\nRKNK3rERFz72z3qNtOnfrbPIezrVT3jdRvLlODdV86a+ht2/zXkCWEhbFT7aqGWw\nrM03WCPWoQKBgQDuOY2lpo2zZ59YzugLgtAUfyNkQIC6tWhZYDAyoXl0WPKThceX\nDMvJTOxoL0iJ0sns0Xry2N36nWtTPirsWtbCkbvQQh4jgNh1uIfva5tDtN2fsLpV\nTtrE4S3YImi7Mms49ADwd3Z9t5ZfrJTua59UUy4RacxDvpgyRzJkr+PBzQKBgA1Q\nieYoQm0LFjvRHlDJrcAy+id+qSDy83Gd1lbkfyDAc5fdfNaT0wBfsxrGHzarr+Dd\ndE2ssDtkqEI0C3HBNeVhW+8Y7qb3mmZV1Uawi8g0lTVB3zzK+ByLR1iJXloGTV7T\nt7gtb6cVsj0B/co7ue+Xgv5N7N5An3ClY6DnBYbBAoGBALn2uvnI0FnukoowPTKF\nEzutS7F61KqpB+oDdhFEnyjVV1w3YAKECStuWKvylIxv1bmjJeJTeTt4UE4g/Csy\nfml/hMxc2LHGrdbs6HqeT6X8kfKqgd7cD1OXf8PVEP6LvCr/Z+lNHIx6kwuVspHi\nxr4/jMC98ojtXQa8+vUYUr+N\n-----END PRIVATE KEY-----\n",
+  "client_email": "speechinnovant@travelmasi-166603.iam.gserviceaccount.com",
+  "client_id": "103157023623505391445",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/speechinnovant%40travelmasi-166603.iam.gserviceaccount.com"
+}

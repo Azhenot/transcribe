@@ -37,8 +37,8 @@ public class VideoTranscription {
 
     public void googleSpeech(String googleApiKeyLink, String soundLink, String videoLink, int nbSmoothing, int clusterSize) {
 
-        Text text = new Text(googleApiKeyLink);
-        text.transcribeGoogleSpeech(soundLink);
+        Text text = new Text(".\\src\\main\\resources\\textGoogleTranscription.txt");
+        text.transcribeGoogleSpeech(soundLink, googleApiKeyLink);
         text.readFile();
         text.handleTextGoogleSpeech();
         text.setOccToMots();
